@@ -1,5 +1,9 @@
 package interfaces;
 
-public interface IVisualizarR {
+import java.rmi.RemoteException;
 
+import persistence.VisualizarR;;
+
+public interface IVisualizarR {
+	VisualizarR listarRanking() throws RemoteException;
 }
