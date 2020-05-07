@@ -131,10 +131,9 @@ public class EventoDAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO eventos ( 1, 2, 3, "
-               + "4, 5, 6, "
-               + "7, 8, 9, "
-               + "10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+               sql = "INSERT INTO eventos(\r\n" + 
+               		"	id_evento, id_encargado, nombre_evento, descripcion, fecha, lugar, hora, cupos, puntos, tipo_evento)\r\n" + 
+               		"	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
                stmt = conn.prepareStatement(sql);
 
                stmt.setInt(1, valueObject.getId_evento()); 
@@ -439,16 +438,19 @@ public class EventoDAO {
 
               if (result.next()) {
 
-                   valueObject.setId_evento(result.getInt("1")); 
-                   valueObject.setId_encargado(result.getInt("2")); 
-                   valueObject.setNombre_evento(result.getString("3")); 
-                   valueObject.setDescripcion(result.getString("4")); 
-                   valueObject.setFecha(result.getDate("5")); 
-                   valueObject.setLugar(result.getString("6")); 
-                   valueObject.setHora(result.getString("7")); 
-                   valueObject.setCupos(result.getInt("8")); 
-                   valueObject.setPuntos(result.getInt("9")); 
-                   valueObject.setTipo_evento(result.getString("10")); 
+                   valueObject.setId_evento(result.getInt("id_evento")); 
+                   valueObject.setId_encargado(result.getInt("id_encargado")); 
+                   valueObject.setNombre_evento(result.getString("nombre_evento")); 
+                   valueObject.setDescripcion(result.getString("descripcion")); 
+                   valueObject.setFecha(result.getDate("fecha")); 
+                   valueObject.setLugar(result.getString("lugar")); 
+                   valueObject.setHora(result.getString("hora")); 
+                   valueObject.setCupos(result.getInt("cupos")); 
+                   valueObject.setPuntos(result.getInt("puntos")); 
+                   valueObject.setTipo_evento(result.getString("tipo_evento")); 
+                   
+                   
+                   System.out.println("hola soy el maldito: "+valueObject);
 
               } else {
                     //System.out.println("Evento Object Not Found!");

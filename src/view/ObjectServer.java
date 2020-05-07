@@ -19,7 +19,7 @@ public class ObjectServer {
 		Imple_registroE impl6 = new Imple_registroE();
 		Imple_visualizarR impl7 = new Imple_visualizarR();
 		
-		Registry r = LocateRegistry.createRegistry(10000);
+		Registry r = LocateRegistry.createRegistry(10001);
 		r.rebind("Asistente", (Remote) impl1);
 		System.out.println("Objeto Asistente Publicado");
 		
@@ -38,7 +38,7 @@ public class ObjectServer {
 		r.rebind("RegistroEventos", (Remote) impl6);
 		System.out.println("Objeto Registro Eventos Publicado");
 		
-		r.rebind("VisualizarRanking", (Remote) impl6);
+		r.rebind("VisualizarRanking", (Remote) impl7);
 		System.out.println("Objeto Visualizar Ranking Publicado");
 		
 		

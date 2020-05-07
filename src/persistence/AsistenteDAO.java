@@ -73,7 +73,7 @@ public class AsistenteDAO {
      */
     public void load(Connection conn, Asistente valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM asistentes WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM asistentes WHERE (cedula = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -100,7 +100,7 @@ public class AsistenteDAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM asistentes ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM asistentes ORDER BY cedula ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -128,8 +128,9 @@ public class AsistenteDAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO asistentes ( 1, 2, 3, "
-               + "4) VALUES (?, ?, ?, ?) ";
+               sql = "INSERT INTO asistentes(\r\n" + 
+               		"	cedula, nombre, celular, email)\r\n" + 
+               		"	VALUES (?, ?, ?, ?); ";
                stmt = conn.prepareStatement(sql);
 
                stmt.setInt(1, valueObject.getCedula()); 
@@ -166,7 +167,9 @@ public class AsistenteDAO {
     public void save(Connection conn, Asistente valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE asistentes SET 2 = ?, 3 = ?, 4 = ? WHERE (1 = ? ) ";
+          String sql = "UPDATE public.asistentes\r\n" + 
+          		"	SET cedula=?, nombre=?, celular=?, email=?\r\n" + 
+          		"	WHERE (cedula = ?); ";
           PreparedStatement stmt = null;
 
           try {
@@ -208,7 +211,7 @@ public class AsistenteDAO {
     public void delete(Connection conn, Asistente valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM asistentes WHERE (1 = ? ) ";
+          String sql = "DELETE FROM asistentes WHERE (cedula = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -306,30 +309,30 @@ public class AsistenteDAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM asistentes WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM asistentes WHERE cedula=1 ");
 
           if (valueObject.getCedula() != 0) {
               if (first) { first = false; }
-              sql.append("AND 1 = ").append(valueObject.getCedula()).append(" ");
+              sql.append("AND cedula = ").append(valueObject.getCedula()).append(" ");
           }
 
           if (valueObject.getNombre() != null) {
               if (first) { first = false; }
-              sql.append("AND 2 LIKE '").append(valueObject.getNombre()).append("%' ");
+              sql.append("AND nombre LIKE '").append(valueObject.getNombre()).append("%' ");
           }
 
           if (valueObject.getCelular() != 0) {
               if (first) { first = false; }
-              sql.append("AND 3 = ").append(valueObject.getCelular()).append(" ");
+              sql.append("AND celular = ").append(valueObject.getCelular()).append(" ");
           }
 
           if (valueObject.getEmail() != null) {
               if (first) { first = false; }
-              sql.append("AND 4 LIKE '").append(valueObject.getEmail()).append("%' ");
+              sql.append("AND email LIKE '").append(valueObject.getEmail()).append("%' ");
           }
 
 
-          sql.append("ORDER BY 1 ASC ");
+          sql.append("ORDER BY cedula ASC ");
 
           // Prevent accidential full table results.
           // Use loadAll if all rows must be returned.
@@ -388,10 +391,10 @@ public class AsistenteDAO {
 
               if (result.next()) {
 
-                   valueObject.setCedula(result.getInt("1")); 
-                   valueObject.setNombre(result.getString("2")); 
-                   valueObject.setCelular(result.getInt("3")); 
-                   valueObject.setEmail(result.getString("4")); 
+                   valueObject.setCedula(result.getInt("cedula")); 
+                   valueObject.setNombre(result.getString("nombre")); 
+                   valueObject.setCelular(result.getInt("celular")); 
+                   valueObject.setEmail(result.getString("email")); 
 
               } else {
                     //System.out.println("Asistente Object Not Found!");
@@ -425,10 +428,10 @@ public class AsistenteDAO {
               while (result.next()) {
                    Asistente temp = createValueObject();
 
-                   temp.setCedula(result.getInt("1")); 
-                   temp.setNombre(result.getString("2")); 
-                   temp.setCelular(result.getInt("3")); 
-                   temp.setEmail(result.getString("4")); 
+                   temp.setCedula(result.getInt("cedula")); 
+                   temp.setNombre(result.getString("nombre")); 
+                   temp.setCelular(result.getInt("celular")); 
+                   temp.setEmail(result.getString("email")); 
 
                    searchResults.add(temp);
               }

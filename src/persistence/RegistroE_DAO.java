@@ -77,7 +77,7 @@ public class RegistroE_DAO {
      */
     public void load(Connection conn, RegistroE valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM registro WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM registro WHERE (id_registro = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -104,7 +104,7 @@ public class RegistroE_DAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM registro ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM registro ORDER BY id_registro ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -132,8 +132,9 @@ public class RegistroE_DAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO registro ( 1, 2, 3, "
-               + "4, 5, 6) VALUES (?, ?, ?, ?, ?, ?) ";
+               sql = "INSERT INTO registro(\r\n" + 
+               		"	id_registro, id_evento, id_miembro, id_asistente, fecha_registro, asistencia)\r\n" + 
+               		"	VALUES (?, ?, ?, ?, ?, ?); ";
                stmt = conn.prepareStatement(sql);
 
                stmt.setInt(1, valueObject.getId_registro()); 
@@ -172,8 +173,9 @@ public class RegistroE_DAO {
     public void save(Connection conn, RegistroE valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE registro SET 2 = ?, 3 = ?, 4 = ?, "
-               + "5 = ?, 6 = ? WHERE (1 = ? ) ";
+          String sql = "UPDATE registro\r\n" + 
+          		"	SET id_registro=?, id_evento=?, id_miembro=?, id_asistente=?, fecha_registro=?, asistencia=?\r\n" + 
+          		"	WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -217,7 +219,7 @@ public class RegistroE_DAO {
     public void delete(Connection conn, RegistroE valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM registro WHERE (1 = ? ) ";
+          String sql = "DELETE FROM registro WHERE (id_registro = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -315,40 +317,40 @@ public class RegistroE_DAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM registro WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM registro WHERE id_registro=1 ");
 
           if (valueObject.getId_registro() != 0) {
               if (first) { first = false; }
-              sql.append("AND 1 = ").append(valueObject.getId_registro()).append(" ");
+              sql.append("AND id_regsitro = ").append(valueObject.getId_registro()).append(" ");
           }
 
           if (valueObject.getId_evento() != 0) {
               if (first) { first = false; }
-              sql.append("AND 2 = ").append(valueObject.getId_evento()).append(" ");
+              sql.append("AND id_evento = ").append(valueObject.getId_evento()).append(" ");
           }
 
           if (valueObject.getId_miembro() != 0) {
               if (first) { first = false; }
-              sql.append("AND 3 = ").append(valueObject.getId_miembro()).append(" ");
+              sql.append("AND id_miembro = ").append(valueObject.getId_miembro()).append(" ");
           }
 
           if (valueObject.getId_asistente() != 0) {
               if (first) { first = false; }
-              sql.append("AND 4 = ").append(valueObject.getId_asistente()).append(" ");
+              sql.append("AND id_asistente = ").append(valueObject.getId_asistente()).append(" ");
           }
 
           if (valueObject.getFecha_registro() != null) {
               if (first) { first = false; }
-              sql.append("AND 5 LIKE '").append(valueObject.getFecha_registro()).append("%' ");
+              sql.append("AND fecha_registro LIKE '").append(valueObject.getFecha_registro()).append("%' ");
           }
 
           if (valueObject.getAsistencia() != null) {
               if (first) { first = false; }
-              sql.append("AND 6 LIKE '").append(valueObject.getAsistencia()).append("%' ");
+              sql.append("AND asistencia LIKE '").append(valueObject.getAsistencia()).append("%' ");
           }
 
 
-          sql.append("ORDER BY 1 ASC ");
+          sql.append("ORDER BY id_registro ASC ");
 
           // Prevent accidential full table results.
           // Use loadAll if all rows must be returned.
@@ -407,12 +409,12 @@ public class RegistroE_DAO {
 
               if (result.next()) {
 
-                   valueObject.setId_registro(result.getInt("1")); 
-                   valueObject.setId_evento(result.getInt("2")); 
-                   valueObject.setId_miembro(result.getInt("3")); 
-                   valueObject.setId_asistente(result.getInt("4")); 
-                   valueObject.setFecha_registro(result.getDate("5")); 
-                   valueObject.setAsistencia(result.getString("6")); 
+                   valueObject.setId_registro(result.getInt("id_registro")); 
+                   valueObject.setId_evento(result.getInt("id_evento")); 
+                   valueObject.setId_miembro(result.getInt("id_miembro")); 
+                   valueObject.setId_asistente(result.getInt("id_assitente")); 
+                   valueObject.setFecha_registro(result.getDate("fecha_registro")); 
+                   valueObject.setAsistencia(result.getString("asistencia")); 
 
               } else {
                     //System.out.println("RegistroE Object Not Found!");
@@ -446,12 +448,12 @@ public class RegistroE_DAO {
               while (result.next()) {
                    RegistroE temp = createValueObject();
 
-                   temp.setId_registro(result.getInt("1")); 
-                   temp.setId_evento(result.getInt("2")); 
-                   temp.setId_miembro(result.getInt("3")); 
-                   temp.setId_asistente(result.getInt("4")); 
-                   temp.setFecha_registro(result.getDate("5")); 
-                   temp.setAsistencia(result.getString("6")); 
+                   temp.setId_registro(result.getInt("id_registro")); 
+                   temp.setId_evento(result.getInt("id_evento")); 
+                   temp.setId_miembro(result.getInt("id_evento")); 
+                   temp.setId_asistente(result.getInt("id_asistente")); 
+                   temp.setFecha_registro(result.getDate("fecha_registro")); 
+                   temp.setAsistencia(result.getString("asistente")); 
 
                    searchResults.add(temp);
               }

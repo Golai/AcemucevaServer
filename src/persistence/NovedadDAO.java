@@ -77,7 +77,7 @@ public class NovedadDAO {
      */
     public void load(Connection conn, Novedad valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM novedades WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM novedades WHERE (id_novedad = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -104,7 +104,7 @@ public class NovedadDAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM novedades ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM novedades ORDER BY id_novedad ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -132,8 +132,9 @@ public class NovedadDAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO novedades ( 1, 2, 3, "
-               + "4, 5) VALUES (?, ?, ?, ?, ?) ";
+               sql = "INSERT INTO novedades(\r\n" + 
+               		"	id_novedad, id_encargado, titulo, descripcion, tipo_novedad)\r\n" + 
+               		"	VALUES (?, ?, ?, ?, ?) ";
                stmt = conn.prepareStatement(sql);
 
                stmt.setInt(1, valueObject.getId_novedades()); 
@@ -171,14 +172,15 @@ public class NovedadDAO {
     public void save(Connection conn, Novedad valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE novedades SET 2 = ?, 3 = ?, 4 = ?, "
-               + "5 = ? WHERE (1 = ? ) ";
+          String sql = "UPDATE novedades\r\n" + 
+          		"	SET id_encargado=?, titulo=?, descripcion=?, tipo_novedad=?\r\n" + 
+          		"	WHERE (id_noverdad = ? ) ";
           PreparedStatement stmt = null;
 
           try {
               stmt = conn.prepareStatement(sql);
-              stmt.setString(1, valueObject.getTitulo()); 
-              stmt.setInt(2, valueObject.getId_encargado()); 
+              stmt.setInt(1, valueObject.getId_encargado()); 
+              stmt.setString(2, valueObject.getTitulo()); 
               stmt.setString(3, valueObject.getDescripcion()); 
               stmt.setString(4, valueObject.getTipo_novedad()); 
 
@@ -215,7 +217,7 @@ public class NovedadDAO {
     public void delete(Connection conn, Novedad valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM novedades WHERE (1 = ? ) ";
+          String sql = "DELETE FROM novedades WHERE (id_novedad = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -313,35 +315,35 @@ public class NovedadDAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM novedades WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM novedades WHERE id_novedd=? ");
 
           if (valueObject.getId_novedades() != 0) {
               if (first) { first = false; }
-              sql.append("AND 1 = ").append(valueObject.getId_novedades()).append(" ");
+              sql.append("AND id_novedad = ").append(valueObject.getId_novedades()).append(" ");
           }
 
           if (valueObject.getTitulo() != null) {
               if (first) { first = false; }
-              sql.append("AND 2 LIKE '").append(valueObject.getTitulo()).append("%' ");
+              sql.append("AND id_encargado LIKE '").append(valueObject.getTitulo()).append("%' ");
           }
 
           if (valueObject.getId_encargado() != 0) {
               if (first) { first = false; }
-              sql.append("AND 3 = ").append(valueObject.getId_encargado()).append(" ");
+              sql.append("AND titulo = ").append(valueObject.getId_encargado()).append(" ");
           }
 
           if (valueObject.getDescripcion() != null) {
               if (first) { first = false; }
-              sql.append("AND 4 LIKE '").append(valueObject.getDescripcion()).append("%' ");
+              sql.append("AND descripcion LIKE '").append(valueObject.getDescripcion()).append("%' ");
           }
 
           if (valueObject.getTipo_novedad() != null) {
               if (first) { first = false; }
-              sql.append("AND 5 LIKE '").append(valueObject.getTipo_novedad()).append("%' ");
+              sql.append("AND tipo_novedad LIKE '").append(valueObject.getTipo_novedad()).append("%' ");
           }
 
 
-          sql.append("ORDER BY 1 ASC ");
+          sql.append("ORDER BY id_novedad ASC ");
 
           // Prevent accidential full table results.
           // Use loadAll if all rows must be returned.
@@ -400,11 +402,11 @@ public class NovedadDAO {
 
               if (result.next()) {
 
-                   valueObject.setId_novedades(result.getInt("1")); 
-                   valueObject.setTitulo(result.getString("2")); 
-                   valueObject.setId_encargado(result.getInt("3")); 
-                   valueObject.setDescripcion(result.getString("4")); 
-                   valueObject.setTipo_novedad(result.getString("5")); 
+                   valueObject.setId_novedades(result.getInt("id_novedad")); 
+                   valueObject.setId_encargado(result.getInt("id_encargado")); 
+                   valueObject.setTitulo(result.getString("titulo")); 
+                   valueObject.setDescripcion(result.getString("descripcion")); 
+                   valueObject.setTipo_novedad(result.getString("tipo_novedad")); 
 
               } else {
                     //System.out.println("Novedad Object Not Found!");
@@ -438,11 +440,11 @@ public class NovedadDAO {
               while (result.next()) {
                    Novedad temp = createValueObject();
 
-                   temp.setId_novedades(result.getInt("1")); 
-                   temp.setTitulo(result.getString("2")); 
-                   temp.setId_encargado(result.getInt("3")); 
-                   temp.setDescripcion(result.getString("4")); 
-                   temp.setTipo_novedad(result.getString("5")); 
+                   temp.setId_novedades(result.getInt("id_novedad")); 
+                   temp.setId_encargado(result.getInt("id_encargado"));
+                   temp.setTitulo(result.getString("titulo"));  
+                   temp.setDescripcion(result.getString("descripcion")); 
+                   temp.setTipo_novedad(result.getString("tipo_novedad")); 
 
                    searchResults.add(temp);
               }

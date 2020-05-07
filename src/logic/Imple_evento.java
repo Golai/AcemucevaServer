@@ -15,6 +15,11 @@ import persistence.NotFoundException;
 
 public class Imple_evento extends UnicastRemoteObject implements IEvento{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Imple_evento() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
@@ -23,8 +28,8 @@ public class Imple_evento extends UnicastRemoteObject implements IEvento{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
+	//private static final long serialVersionUID = 1L;
+	
 	@Override
 	public Evento searchEvento(int id_evento) throws RemoteException {
 		// crear el value object a retornar
@@ -42,6 +47,7 @@ public class Imple_evento extends UnicastRemoteObject implements IEvento{
 			u = null;
 			e.printStackTrace();
 		}
+		System.out.println("u modificaa:    "+u );
 		return u;
 	}
 

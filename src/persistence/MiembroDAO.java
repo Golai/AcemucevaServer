@@ -77,7 +77,7 @@ public class MiembroDAO {
      */
     public void load(Connection conn, Miembro valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM miembros WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM miembros WHERE (cedula = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -104,7 +104,7 @@ public class MiembroDAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM miembros ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM miembros ORDER BY cedula ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -132,16 +132,18 @@ public class MiembroDAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO miembros ( 1, 2, 3, "
-               + "4, 5, 6) VALUES (?, ?, ?, ?, ?, ?) ";
+               sql = "UPDATE public.miembros\r\n" + 
+               		"	SET cedula=?, id_cargo=?, nombre=?, celular=?, email=?, semestre=?, puntos=?\r\n" + 
+               		"	WHERE (cedula = ?);";
                stmt = conn.prepareStatement(sql);
 
                stmt.setInt(1, valueObject.getCedula()); 
                stmt.setInt(2, valueObject.getId_cargo()); 
                stmt.setString(3, valueObject.getNombre()); 
                stmt.setInt(4, valueObject.getCelular()); 
-               stmt.setInt(5, valueObject.getSemestre()); 
-               stmt.setInt(6, valueObject.getPuntos()); 
+               stmt.setString(5, valueObject.getEmail());
+               stmt.setInt(7, valueObject.getSemestre()); 
+               stmt.setInt(8, valueObject.getPuntos()); 
 
                int rowcount = databaseUpdate(conn, stmt);
                if (rowcount != 1) {
@@ -172,19 +174,21 @@ public class MiembroDAO {
     public void save(Connection conn, Miembro valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE miembros SET 2 = ?, 3 = ?, 4 = ?, "
-               + "5 = ?, 6 = ? WHERE (1 = ? ) ";
+          String sql = "UPDATE miembros\r\n" + 
+          		"	SET id_cargo=?, nombre=?, celular=?, email=?, semestre=?, puntos=?\r\n" + 
+          		"	WHERE (cedula=?) ";
           PreparedStatement stmt = null;
 
           try {
               stmt = conn.prepareStatement(sql);
               stmt.setInt(1, valueObject.getId_cargo()); 
               stmt.setString(2, valueObject.getNombre()); 
-              stmt.setInt(3, valueObject.getCelular()); 
-              stmt.setInt(4, valueObject.getSemestre()); 
-              stmt.setInt(5, valueObject.getPuntos()); 
+              stmt.setInt(3, valueObject.getCelular());
+              stmt.setString(4, valueObject.getEmail());
+              stmt.setInt(5, valueObject.getSemestre()); 
+              stmt.setInt(6, valueObject.getPuntos()); 
 
-              stmt.setInt(6, valueObject.getCedula()); 
+              stmt.setInt(7, valueObject.getCedula()); 
 
               int rowcount = databaseUpdate(conn, stmt);
               if (rowcount == 0) {
@@ -217,7 +221,7 @@ public class MiembroDAO {
     public void delete(Connection conn, Miembro valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM miembros WHERE (1 = ? ) ";
+          String sql = "DELETE FROM miembros WHERE (cedula = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -315,40 +319,45 @@ public class MiembroDAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM miembros WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM miembros WHERE cedula=1 ");
 
           if (valueObject.getCedula() != 0) {
               if (first) { first = false; }
-              sql.append("AND 1 = ").append(valueObject.getCedula()).append(" ");
+              sql.append("AND cedula = ").append(valueObject.getCedula()).append(" ");
           }
 
           if (valueObject.getId_cargo() != 0) {
               if (first) { first = false; }
-              sql.append("AND 2 = ").append(valueObject.getId_cargo()).append(" ");
+              sql.append("AND id_cargo = ").append(valueObject.getId_cargo()).append(" ");
           }
 
           if (valueObject.getNombre() != null) {
               if (first) { first = false; }
-              sql.append("AND 3 LIKE '").append(valueObject.getNombre()).append("%' ");
+              sql.append("AND nombre LIKE '").append(valueObject.getNombre()).append("%' ");
           }
 
           if (valueObject.getCelular() != 0) {
               if (first) { first = false; }
-              sql.append("AND 4 = ").append(valueObject.getCelular()).append(" ");
+              sql.append("AND celular = ").append(valueObject.getCelular()).append(" ");
+          }
+          
+          if (valueObject.getEmail() != null) {
+        	  if (first) { first = false; }
+              sql.append("AND email = ").append(valueObject.getCelular()).append(" ");
           }
 
           if (valueObject.getSemestre() != 0) {
               if (first) { first = false; }
-              sql.append("AND 5 = ").append(valueObject.getSemestre()).append(" ");
+              sql.append("AND email = ").append(valueObject.getSemestre()).append(" ");
           }
 
           if (valueObject.getPuntos() != 0) {
               if (first) { first = false; }
-              sql.append("AND 6 = ").append(valueObject.getPuntos()).append(" ");
+              sql.append("AND semestre = ").append(valueObject.getPuntos()).append(" ");
           }
 
 
-          sql.append("ORDER BY 1 ASC ");
+          sql.append("ORDER BY cedula ASC ");
 
           // Prevent accidential full table results.
           // Use loadAll if all rows must be returned.
@@ -407,12 +416,13 @@ public class MiembroDAO {
 
               if (result.next()) {
 
-                   valueObject.setCedula(result.getInt("1")); 
-                   valueObject.setId_cargo(result.getInt("2")); 
-                   valueObject.setNombre(result.getString("3")); 
-                   valueObject.setCelular(result.getInt("4")); 
-                   valueObject.setSemestre(result.getInt("5")); 
-                   valueObject.setPuntos(result.getInt("6")); 
+                   valueObject.setCedula(result.getInt("cedula")); 
+                   valueObject.setId_cargo(result.getInt("id_cargo")); 
+                   valueObject.setNombre(result.getString("nombre")); 
+                   valueObject.setCelular(result.getInt("celular")); 
+                   valueObject.setEmail((result.getString("email"))); 
+                   valueObject.setSemestre(result.getInt("semesre"));
+                   valueObject.setPuntos((result.getInt("puntos")));
 
               } else {
                     //System.out.println("Miembro Object Not Found!");
@@ -446,12 +456,13 @@ public class MiembroDAO {
               while (result.next()) {
                    Miembro temp = createValueObject();
 
-                   temp.setCedula(result.getInt("1")); 
-                   temp.setId_cargo(result.getInt("2")); 
-                   temp.setNombre(result.getString("3")); 
-                   temp.setCelular(result.getInt("4")); 
-                   temp.setSemestre(result.getInt("5")); 
-                   temp.setPuntos(result.getInt("6")); 
+                   temp.setCedula(result.getInt("cedula")); 
+                   temp.setId_cargo(result.getInt("id_cargo")); 
+                   temp.setNombre(result.getString("nombre")); 
+                   temp.setCelular(result.getInt("celular"));
+                   temp.setEmail(result.getString("email"));
+                   temp.setSemestre(result.getInt("semestre")); 
+                   temp.setPuntos(result.getInt("puntos")); 
 
                    searchResults.add(temp);
               }

@@ -42,7 +42,8 @@ public class Miembro implements Cloneable, Serializable {
     private int id_cargo;
     private String nombre;
     private int celular;
-    private int semestre;
+    private String email;
+   	private int semestre;
     private int puntos;
 
 
@@ -112,6 +113,14 @@ public class Miembro implements Cloneable, Serializable {
     public void setPuntos(int puntosIn) {
           this.puntos = puntosIn;
     }
+    public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 
 
 
