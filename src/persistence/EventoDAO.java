@@ -76,7 +76,7 @@ public class EventoDAO {
      */
     public void load(Connection conn, Evento valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM eventos WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM eventos WHERE (id_evento = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -148,6 +148,8 @@ public class EventoDAO {
                stmt.setInt(9, valueObject.getPuntos()); 
                stmt.setString(10, valueObject.getTipo_evento()); 
 
+               System.out.println("conn:     "+ conn);
+               System.out.println("stmt:     "+ stmt);
                int rowcount = databaseUpdate(conn, stmt);
                if (rowcount != 1) {
                     //System.out.println("PrimaryKey Error when updating DB!");
@@ -410,7 +412,7 @@ public class EventoDAO {
      * @param stmt         This parameter contains the SQL statement to be excuted.
      */
     protected int databaseUpdate(Connection conn, PreparedStatement stmt) throws SQLException {
-
+    	
           int result = stmt.executeUpdate();
 
           return result;
