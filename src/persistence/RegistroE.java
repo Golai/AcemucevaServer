@@ -1,9 +1,7 @@
 package persistence;
 
 import java.io.*;
-import java.sql.*;
-import java.util.*;
-import java.math.*;
+import java.sql.Date;
 
  /**
   * RegistroE Value Object.
@@ -33,7 +31,11 @@ import java.math.*;
 
 public class RegistroE implements Cloneable, Serializable {
 
-    /** 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** 
      * Persistent Instance variables. This data is directly 
      * mapped to the columns of database table.
      */
@@ -41,7 +43,7 @@ public class RegistroE implements Cloneable, Serializable {
     private int id_evento;
     private int id_miembro;
     private int id_asistente;
-    private String fecha_registro;
+    private Date fecha_registro;
     private String asistencia;
 
 
@@ -98,10 +100,10 @@ public class RegistroE implements Cloneable, Serializable {
           this.id_asistente = id_asistenteIn;
     }
 
-    public String getFecha_registro() {
+    public Date getFecha_registro() {
           return this.fecha_registro;
     }
-    public void setFecha_registro(String fecha_registroIn) {
+    public void setFecha_registro(Date fecha_registroIn) {
           this.fecha_registro = fecha_registroIn;
     }
 
@@ -126,7 +128,7 @@ public class RegistroE implements Cloneable, Serializable {
           int id_eventoIn,
           int id_miembroIn,
           int id_asistenteIn,
-          String fecha_registroIn,
+          Date fecha_registroIn,
           String asistenciaIn) {
           this.id_registro = id_registroIn;
           this.id_evento = id_eventoIn;
@@ -209,7 +211,7 @@ public class RegistroE implements Cloneable, Serializable {
         cloned.setId_miembro(this.id_miembro); 
         cloned.setId_asistente(this.id_asistente); 
         if (this.fecha_registro != null)
-             cloned.setFecha_registro(new String(this.fecha_registro)); 
+            // cloned.setFecha_registro(new Date(this.fecha_registro)); 
         if (this.asistencia != null)
              cloned.setAsistencia(new String(this.asistencia)); 
         return cloned;

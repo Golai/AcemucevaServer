@@ -1,10 +1,6 @@
 package persistence;
 
 import java.io.*;
-import java.sql.*;
-import java.util.*;
-import java.math.*;
-
  /**
   * Novedad Value Object.
   * This class is value object representing database table acemuceva
@@ -33,7 +29,11 @@ import java.math.*;
 
 public class Novedad implements Cloneable, Serializable {
 
-    /** 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** 
      * Persistent Instance variables. This data is directly 
      * mapped to the columns of database table.
      */
@@ -115,8 +115,8 @@ public class Novedad implements Cloneable, Serializable {
      */
 
     public void setAll(int id_novedadesIn,
-          String tituloIn,
           int id_encargadoIn,
+          String tituloIn,
           String descripcionIn,
           String tipo_novedadIn) {
           this.id_novedades = id_novedadesIn;

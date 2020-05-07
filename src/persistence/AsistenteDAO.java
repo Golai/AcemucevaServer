@@ -2,7 +2,6 @@ package persistence;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
 
  /**
@@ -30,10 +29,7 @@ import java.math.*;
   */
 
 
-
 public class AsistenteDAO {
-
-
 
     /**
      * createValueObject-method. This method is used when the Dao class needs
@@ -77,7 +73,7 @@ public class AsistenteDAO {
      */
     public void load(Connection conn, Asistente valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM acemuceva WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM asistentes WHERE (1 = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -104,7 +100,7 @@ public class AsistenteDAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM acemuceva ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM asistentes ORDER BY 1 ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -132,7 +128,7 @@ public class AsistenteDAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO acemuceva ( 1, 2, 3, "
+               sql = "INSERT INTO asistentes ( 1, 2, 3, "
                + "4) VALUES (?, ?, ?, ?) ";
                stmt = conn.prepareStatement(sql);
 
@@ -170,7 +166,7 @@ public class AsistenteDAO {
     public void save(Connection conn, Asistente valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE acemuceva SET 2 = ?, 3 = ?, 4 = ? WHERE (1 = ? ) ";
+          String sql = "UPDATE asistentes SET 2 = ?, 3 = ?, 4 = ? WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -212,7 +208,7 @@ public class AsistenteDAO {
     public void delete(Connection conn, Asistente valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM acemuceva WHERE (1 = ? ) ";
+          String sql = "DELETE FROM asistentes WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -248,7 +244,7 @@ public class AsistenteDAO {
      */
     public void deleteAll(Connection conn) throws SQLException {
 
-          String sql = "DELETE FROM acemuceva";
+          String sql = "DELETE FROM asistentes";
           PreparedStatement stmt = null;
 
           try {
@@ -271,7 +267,7 @@ public class AsistenteDAO {
      */
     public int countAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT count(*) FROM acemuceva";
+          String sql = "SELECT count(*) FROM asistentes";
           PreparedStatement stmt = null;
           ResultSet result = null;
           int allRows = 0;
@@ -310,7 +306,7 @@ public class AsistenteDAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM acemuceva WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM asistentes WHERE 1=1 ");
 
           if (valueObject.getCedula() != 0) {
               if (first) { first = false; }

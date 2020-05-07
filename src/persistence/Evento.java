@@ -1,9 +1,6 @@
 package persistence;
 
 import java.io.*;
-import java.sql.*;
-import java.util.*;
-import java.math.*;
 
  /**
   * Evento Value Object.
@@ -33,7 +30,11 @@ import java.math.*;
 
 public class Evento implements Cloneable, Serializable {
 
-    /** 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** 
      * Persistent Instance variables. This data is directly 
      * mapped to the columns of database table.
      */
@@ -43,7 +44,7 @@ public class Evento implements Cloneable, Serializable {
     private String descripcion;
     private java.sql.Date fecha;
     private String lugar;
-    private int hora;
+    private String hora;
     private int cupos;
     private int puntos;
     private String tipo_evento;
@@ -116,10 +117,10 @@ public class Evento implements Cloneable, Serializable {
           this.lugar = lugarIn;
     }
 
-    public int getHora() {
+    public String getHora() {
           return this.hora;
     }
-    public void setHora(int horaIn) {
+    public void setHora(String horaIn) {
           this.hora = horaIn;
     }
 
@@ -160,7 +161,7 @@ public class Evento implements Cloneable, Serializable {
           String descripcionIn,
           java.sql.Date fechaIn,
           String lugarIn,
-          int horaIn,
+          String horaIn,
           int cuposIn,
           int puntosIn,
           String tipo_eventoIn) {

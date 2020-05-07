@@ -8,7 +8,7 @@ import persistence.VisualizarR;
 
 public class Imple_visualizarR extends UnicastRemoteObject implements IVisualizarR {
 
-	protected Imple_visualizarR() throws RemoteException {
+	public Imple_visualizarR() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}

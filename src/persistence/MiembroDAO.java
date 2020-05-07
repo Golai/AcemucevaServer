@@ -77,7 +77,7 @@ public class MiembroDAO {
      */
     public void load(Connection conn, Miembro valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM acemuceva WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM miembros WHERE (1 = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -104,7 +104,7 @@ public class MiembroDAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM acemuceva ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM miembros ORDER BY 1 ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -132,7 +132,7 @@ public class MiembroDAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO acemuceva ( 1, 2, 3, "
+               sql = "INSERT INTO miembros ( 1, 2, 3, "
                + "4, 5, 6) VALUES (?, ?, ?, ?, ?, ?) ";
                stmt = conn.prepareStatement(sql);
 
@@ -172,7 +172,7 @@ public class MiembroDAO {
     public void save(Connection conn, Miembro valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE acemuceva SET 2 = ?, 3 = ?, 4 = ?, "
+          String sql = "UPDATE miembros SET 2 = ?, 3 = ?, 4 = ?, "
                + "5 = ?, 6 = ? WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
@@ -217,7 +217,7 @@ public class MiembroDAO {
     public void delete(Connection conn, Miembro valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM acemuceva WHERE (1 = ? ) ";
+          String sql = "DELETE FROM miembros WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -253,7 +253,7 @@ public class MiembroDAO {
      */
     public void deleteAll(Connection conn) throws SQLException {
 
-          String sql = "DELETE FROM acemuceva";
+          String sql = "DELETE FROM miembros";
           PreparedStatement stmt = null;
 
           try {
@@ -276,7 +276,7 @@ public class MiembroDAO {
      */
     public int countAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT count(*) FROM acemuceva";
+          String sql = "SELECT count(*) FROM miembros";
           PreparedStatement stmt = null;
           ResultSet result = null;
           int allRows = 0;
@@ -315,7 +315,7 @@ public class MiembroDAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM acemuceva WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM miembros WHERE 1=1 ");
 
           if (valueObject.getCedula() != 0) {
               if (first) { first = false; }

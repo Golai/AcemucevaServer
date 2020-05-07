@@ -77,7 +77,7 @@ public class NovedadDAO {
      */
     public void load(Connection conn, Novedad valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM acemuceva WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM novedades WHERE (1 = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -104,7 +104,7 @@ public class NovedadDAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM acemuceva ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM novedades ORDER BY 1 ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -132,7 +132,7 @@ public class NovedadDAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO acemuceva ( 1, 2, 3, "
+               sql = "INSERT INTO novedades ( 1, 2, 3, "
                + "4, 5) VALUES (?, ?, ?, ?, ?) ";
                stmt = conn.prepareStatement(sql);
 
@@ -171,7 +171,7 @@ public class NovedadDAO {
     public void save(Connection conn, Novedad valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE acemuceva SET 2 = ?, 3 = ?, 4 = ?, "
+          String sql = "UPDATE novedades SET 2 = ?, 3 = ?, 4 = ?, "
                + "5 = ? WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
@@ -215,7 +215,7 @@ public class NovedadDAO {
     public void delete(Connection conn, Novedad valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM acemuceva WHERE (1 = ? ) ";
+          String sql = "DELETE FROM novedades WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -251,7 +251,7 @@ public class NovedadDAO {
      */
     public void deleteAll(Connection conn) throws SQLException {
 
-          String sql = "DELETE FROM acemuceva";
+          String sql = "DELETE FROM novedades";
           PreparedStatement stmt = null;
 
           try {
@@ -274,7 +274,7 @@ public class NovedadDAO {
      */
     public int countAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT count(*) FROM acemuceva";
+          String sql = "SELECT count(*) FROM novedades";
           PreparedStatement stmt = null;
           ResultSet result = null;
           int allRows = 0;
@@ -313,7 +313,7 @@ public class NovedadDAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM acemuceva WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM novedades WHERE 1=1 ");
 
           if (valueObject.getId_novedades() != 0) {
               if (first) { first = false; }

@@ -2,7 +2,6 @@ package persistence;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
 
  /**
@@ -77,7 +76,7 @@ public class EventoDAO {
      */
     public void load(Connection conn, Evento valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM acemuceva WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM eventos WHERE (1 = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -104,7 +103,7 @@ public class EventoDAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM acemuceva ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM eventos ORDER BY 1 ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -132,7 +131,7 @@ public class EventoDAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO acemuceva ( 1, 2, 3, "
+               sql = "INSERT INTO eventos ( 1, 2, 3, "
                + "4, 5, 6, "
                + "7, 8, 9, "
                + "10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
@@ -144,7 +143,7 @@ public class EventoDAO {
                stmt.setString(4, valueObject.getDescripcion()); 
                stmt.setDate(5, valueObject.getFecha()); 
                stmt.setString(6, valueObject.getLugar()); 
-               stmt.setInt(7, valueObject.getHora()); 
+               stmt.setString(7, valueObject.getHora()); 
                stmt.setInt(8, valueObject.getCupos()); 
                stmt.setInt(9, valueObject.getPuntos()); 
                stmt.setString(10, valueObject.getTipo_evento()); 
@@ -178,7 +177,7 @@ public class EventoDAO {
     public void save(Connection conn, Evento valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE acemuceva SET 2 = ?, 3 = ?, 4 = ?, "
+          String sql = "UPDATE eventos SET 2 = ?, 3 = ?, 4 = ?, "
                + "5 = ?, 6 = ?, 7 = ?, "
                + "8 = ?, 9 = ?, 10 = ? WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
@@ -190,7 +189,7 @@ public class EventoDAO {
               stmt.setString(3, valueObject.getDescripcion()); 
               stmt.setDate(4, valueObject.getFecha()); 
               stmt.setString(5, valueObject.getLugar()); 
-              stmt.setInt(6, valueObject.getHora()); 
+              stmt.setString(6, valueObject.getHora()); 
               stmt.setInt(7, valueObject.getCupos()); 
               stmt.setInt(8, valueObject.getPuntos()); 
               stmt.setString(9, valueObject.getTipo_evento()); 
@@ -228,7 +227,7 @@ public class EventoDAO {
     public void delete(Connection conn, Evento valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM acemuceva WHERE (1 = ? ) ";
+          String sql = "DELETE FROM eventos WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -264,7 +263,7 @@ public class EventoDAO {
      */
     public void deleteAll(Connection conn) throws SQLException {
 
-          String sql = "DELETE FROM acemuceva";
+          String sql = "DELETE FROM eventos";
           PreparedStatement stmt = null;
 
           try {
@@ -287,7 +286,7 @@ public class EventoDAO {
      */
     public int countAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT count(*) FROM acemuceva";
+          String sql = "SELECT count(*) FROM eventos";
           PreparedStatement stmt = null;
           ResultSet result = null;
           int allRows = 0;
@@ -326,7 +325,7 @@ public class EventoDAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM acemuceva WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM eventos WHERE 1=1 ");
 
           if (valueObject.getId_evento() != 0) {
               if (first) { first = false; }
@@ -358,7 +357,7 @@ public class EventoDAO {
               sql.append("AND 6 LIKE '").append(valueObject.getLugar()).append("%' ");
           }
 
-          if (valueObject.getHora() != 0) {
+          if (valueObject.getHora() != null) {
               if (first) { first = false; }
               sql.append("AND 7 = ").append(valueObject.getHora()).append(" ");
           }
@@ -444,7 +443,7 @@ public class EventoDAO {
                    valueObject.setDescripcion(result.getString("4")); 
                    valueObject.setFecha(result.getDate("5")); 
                    valueObject.setLugar(result.getString("6")); 
-                   valueObject.setHora(result.getInt("7")); 
+                   valueObject.setHora(result.getString("7")); 
                    valueObject.setCupos(result.getInt("8")); 
                    valueObject.setPuntos(result.getInt("9")); 
                    valueObject.setTipo_evento(result.getString("10")); 
@@ -487,7 +486,7 @@ public class EventoDAO {
                    temp.setDescripcion(result.getString("4")); 
                    temp.setFecha(result.getDate("5")); 
                    temp.setLugar(result.getString("6")); 
-                   temp.setHora(result.getInt("7")); 
+                   temp.setHora(result.getString("7")); 
                    temp.setCupos(result.getInt("8")); 
                    temp.setPuntos(result.getInt("9")); 
                    temp.setTipo_evento(result.getString("10")); 

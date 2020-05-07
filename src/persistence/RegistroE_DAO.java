@@ -77,7 +77,7 @@ public class RegistroE_DAO {
      */
     public void load(Connection conn, RegistroE valueObject) throws NotFoundException, SQLException {
 
-          String sql = "SELECT * FROM acemuceva WHERE (1 = ? ) "; 
+          String sql = "SELECT * FROM registro WHERE (1 = ? ) "; 
           PreparedStatement stmt = null;
 
           try {
@@ -104,7 +104,7 @@ public class RegistroE_DAO {
      */
     public List loadAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT * FROM acemuceva ORDER BY 1 ASC ";
+          String sql = "SELECT * FROM registro ORDER BY 1 ASC ";
           List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
           return searchResults;
@@ -132,7 +132,7 @@ public class RegistroE_DAO {
           ResultSet result = null;
 
           try {
-               sql = "INSERT INTO acemuceva ( 1, 2, 3, "
+               sql = "INSERT INTO registro ( 1, 2, 3, "
                + "4, 5, 6) VALUES (?, ?, ?, ?, ?, ?) ";
                stmt = conn.prepareStatement(sql);
 
@@ -140,7 +140,7 @@ public class RegistroE_DAO {
                stmt.setInt(2, valueObject.getId_evento()); 
                stmt.setInt(3, valueObject.getId_miembro()); 
                stmt.setInt(4, valueObject.getId_asistente()); 
-               stmt.setString(5, valueObject.getFecha_registro()); 
+               stmt.setDate(5, valueObject.getFecha_registro()); 
                stmt.setString(6, valueObject.getAsistencia()); 
 
                int rowcount = databaseUpdate(conn, stmt);
@@ -172,7 +172,7 @@ public class RegistroE_DAO {
     public void save(Connection conn, RegistroE valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE acemuceva SET 2 = ?, 3 = ?, 4 = ?, "
+          String sql = "UPDATE registro SET 2 = ?, 3 = ?, 4 = ?, "
                + "5 = ?, 6 = ? WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
@@ -181,7 +181,7 @@ public class RegistroE_DAO {
               stmt.setInt(1, valueObject.getId_evento()); 
               stmt.setInt(2, valueObject.getId_miembro()); 
               stmt.setInt(3, valueObject.getId_asistente()); 
-              stmt.setString(4, valueObject.getFecha_registro()); 
+              stmt.setDate(4, valueObject.getFecha_registro()); 
               stmt.setString(5, valueObject.getAsistencia()); 
 
               stmt.setInt(6, valueObject.getId_registro()); 
@@ -217,7 +217,7 @@ public class RegistroE_DAO {
     public void delete(Connection conn, RegistroE valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "DELETE FROM acemuceva WHERE (1 = ? ) ";
+          String sql = "DELETE FROM registro WHERE (1 = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -253,7 +253,7 @@ public class RegistroE_DAO {
      */
     public void deleteAll(Connection conn) throws SQLException {
 
-          String sql = "DELETE FROM acemuceva";
+          String sql = "DELETE FROM registro";
           PreparedStatement stmt = null;
 
           try {
@@ -276,7 +276,7 @@ public class RegistroE_DAO {
      */
     public int countAll(Connection conn) throws SQLException {
 
-          String sql = "SELECT count(*) FROM acemuceva";
+          String sql = "SELECT count(*) FROM registro";
           PreparedStatement stmt = null;
           ResultSet result = null;
           int allRows = 0;
@@ -315,7 +315,7 @@ public class RegistroE_DAO {
           List searchResults;
 
           boolean first = true;
-          StringBuffer sql = new StringBuffer("SELECT * FROM acemuceva WHERE 1=1 ");
+          StringBuffer sql = new StringBuffer("SELECT * FROM registro WHERE 1=1 ");
 
           if (valueObject.getId_registro() != 0) {
               if (first) { first = false; }
@@ -411,7 +411,7 @@ public class RegistroE_DAO {
                    valueObject.setId_evento(result.getInt("2")); 
                    valueObject.setId_miembro(result.getInt("3")); 
                    valueObject.setId_asistente(result.getInt("4")); 
-                   valueObject.setFecha_registro(result.getString("5")); 
+                   valueObject.setFecha_registro(result.getDate("5")); 
                    valueObject.setAsistencia(result.getString("6")); 
 
               } else {
@@ -450,7 +450,7 @@ public class RegistroE_DAO {
                    temp.setId_evento(result.getInt("2")); 
                    temp.setId_miembro(result.getInt("3")); 
                    temp.setId_asistente(result.getInt("4")); 
-                   temp.setFecha_registro(result.getString("5")); 
+                   temp.setFecha_registro(result.getDate("5")); 
                    temp.setAsistencia(result.getString("6")); 
 
                    searchResults.add(temp);

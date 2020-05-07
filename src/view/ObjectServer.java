@@ -16,7 +16,8 @@ public class ObjectServer {
 		Imple_login impl3 = new Imple_login();
 		Imple_miembro impl4 = new Imple_miembro();
 		Imple_novedad impl5 = new Imple_novedad();
-		//Imple_registroE impl6 = new Imple_registroE();
+		Imple_registroE impl6 = new Imple_registroE();
+		Imple_visualizarR impl7 = new Imple_visualizarR();
 		
 		Registry r = LocateRegistry.createRegistry(10000);
 		r.rebind("Asistente", (Remote) impl1);
@@ -34,8 +35,13 @@ public class ObjectServer {
 		r.rebind("Novedad", (Remote) impl5);
 		System.out.println("Objeto Novedad Publicado");
 		
-		//r.rebind("Registro Eventos", (Remote) impl6);
-		//System.out.println("Objeto Registro Eventos Publicado");
+		r.rebind("RegistroEventos", (Remote) impl6);
+		System.out.println("Objeto Registro Eventos Publicado");
+		
+		r.rebind("VisualizarRanking", (Remote) impl6);
+		System.out.println("Objeto Visualizar Ranking Publicado");
+		
+		
 
 
 	}

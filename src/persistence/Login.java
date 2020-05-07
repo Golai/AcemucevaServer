@@ -1,9 +1,7 @@
 package persistence;
 
 import java.io.*;
-import java.sql.*;
-import java.util.*;
-import java.math.*;
+
 
  /**
   * Login Value Object.
@@ -33,7 +31,11 @@ import java.math.*;
 
 public class Login implements Cloneable, Serializable {
 
-    /** 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** 
      * Persistent Instance variables. This data is directly 
      * mapped to the columns of database table.
      */
