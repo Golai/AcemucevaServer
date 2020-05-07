@@ -3,6 +3,7 @@ package interfaces;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.Date;
+import java.util.List;
 
 import persistence.Evento;
 
@@ -23,6 +24,8 @@ public interface IEvento extends Remote {
 	
 	
 	boolean delEvento(int id_evento)throws RemoteException;
+	
+	List<Evento> searchEventos() throws RemoteException;
 	
 	
 	boolean addEvento(int id_evento,

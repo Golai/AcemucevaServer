@@ -178,9 +178,10 @@ public class EventoDAO {
     public void save(Connection conn, Evento valueObject) 
           throws NotFoundException, SQLException {
 
-          String sql = "UPDATE eventos SET 2 = ?, 3 = ?, 4 = ?, "
-               + "5 = ?, 6 = ?, 7 = ?, "
-               + "8 = ?, 9 = ?, 10 = ? WHERE (1 = ? ) ";
+          String sql = "UPDATE public.eventos\r\n" + 
+          		"	SET  id_encargado=?, nombre_evento=?, descripcion=?, fecha=?, lugar=?,"
+          		+ " hora=?, cupos=?, puntos=?, tipo_evento=?\r\n" + 
+          		"	WHERE  (id_evento = ? ) ";
           PreparedStatement stmt = null;
 
           try {
@@ -484,16 +485,16 @@ public class EventoDAO {
               while (result.next()) {
                    Evento temp = createValueObject();
 
-                   temp.setId_evento(result.getInt("1")); 
-                   temp.setId_encargado(result.getInt("2")); 
-                   temp.setNombre_evento(result.getString("3")); 
-                   temp.setDescripcion(result.getString("4")); 
-                   temp.setFecha(result.getDate("5")); 
-                   temp.setLugar(result.getString("6")); 
-                   temp.setHora(result.getString("7")); 
-                   temp.setCupos(result.getInt("8")); 
-                   temp.setPuntos(result.getInt("9")); 
-                   temp.setTipo_evento(result.getString("10")); 
+                   temp.setId_evento(result.getInt("id_evento")); 
+                   temp.setId_encargado(result.getInt("id_encargado")); 
+                   temp.setNombre_evento(result.getString("nombre_evento")); 
+                   temp.setDescripcion(result.getString("descripcion")); 
+                   temp.setFecha(result.getDate("fecha")); 
+                   temp.setLugar(result.getString("lugar")); 
+                   temp.setHora(result.getString("hora")); 
+                   temp.setCupos(result.getInt("cupos")); 
+                   temp.setPuntos(result.getInt("puntos")); 
+                   temp.setTipo_evento(result.getString("tipo_evento")); 
 
                    searchResults.add(temp);
               }

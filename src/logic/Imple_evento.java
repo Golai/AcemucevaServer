@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 import interfaces.IEvento;
 import persistence.Evento;
@@ -124,6 +125,21 @@ public class Imple_evento extends UnicastRemoteObject implements IEvento{
 			e.printStackTrace();
 		}
 		return add;
+	}
+	
+	public List<Evento> searchEventos()throws RemoteException{
+		List<Evento> l=null;
+		EventoDAO ev=new EventoDAO();
+		
+		try {
+			l=ev.loadAll(getConnection());
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("l"+l);
+		return l;
+		
 	}
 	
 	private Connection getConnection() {
