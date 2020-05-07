@@ -1,9 +1,10 @@
 package interfaces;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import persistence.Asistente;
 
-public interface IAsistente {
+public interface IAsistente extends Remote{
 	boolean registrarAEventos(int id_asistente) throws RemoteException;
 	Asistente searchAsistente(int id_evento) throws RemoteException;
 	boolean updateAsistente(int cedula,
