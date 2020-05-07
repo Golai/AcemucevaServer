@@ -33,6 +33,7 @@ public class Imple_evento extends UnicastRemoteObject implements IEvento{
 		EventoDAO user = new EventoDAO();
 
 		try {
+			System.out.println("u:   " + u.getId_evento());
 			user.load(getConnection(), u);
 		} catch (SQLException e) {
 			u = null;
@@ -110,6 +111,7 @@ public class Imple_evento extends UnicastRemoteObject implements IEvento{
 		EventoDAO evento = new EventoDAO();
 
 		try {
+			System.out.println("hola soy el aaaaaa:       "+a);
 			evento.create(getConnection(), a);
 		} catch (SQLException e) {
 			add = false;
@@ -124,7 +126,7 @@ public class Imple_evento extends UnicastRemoteObject implements IEvento{
 			// registrar la clase del driver
 			Class.forName("org.postgresql.Driver");
 			// obtener el objeto de conexion
-			conn = DriverManager.getConnection("jdbc:postgresql://localhost/acemuceva", "postgres", "2301");// login=postgres
+			conn = DriverManager.getConnection("jdbc:postgresql://localhost/acemuceva", "postgres", "1234");// login=postgres
 																											// ,
 																											// contraseña=postgres
 		} catch (ClassNotFoundException e) {
