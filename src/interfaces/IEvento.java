@@ -1,11 +1,12 @@
 package interfaces;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.Date;
 
 import persistence.Evento;
 
-public interface IEvento {
+public interface IEvento extends Remote {
 	Evento searchEvento(int id_evento) throws RemoteException;
 	boolean updateEvento(int id_evento,
 						 int id_encargado, 
