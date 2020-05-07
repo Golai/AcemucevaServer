@@ -1,10 +1,11 @@
 package interfaces;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import persistence.Novedad;;
 
-public interface INovedad {
+public interface INovedad extends Remote{
 	Novedad searchNovedad(int id_novedad) throws RemoteException;
 	boolean updateNovedad(int id_novedades,
 						  int id_encargado,
