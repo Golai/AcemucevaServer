@@ -1,11 +1,12 @@
 package interfaces;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.Date;
 
 import persistence.RegistroE;
 
-public interface IregistroE {
+public interface IregistroE extends Remote{
 	boolean addRegistroEventos(int id_registro,
 							int id_evento,
 							int id_miembro,
